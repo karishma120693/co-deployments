@@ -1,12 +1,13 @@
 # Container orchestrator (CO) deployment declarations
 
-This repository contains the source declarations to deploy CO drivers (CSI and FlexVolume) and metrics providers (Array Exporter and CSI Info Metrics Provider) for HPE storage platforms.
+This repository contains the source declarations to deploy CO drivers (CSI, COSI and FlexVolume) and metrics providers (Array Exporter and CSI Info Metrics Provider) for HPE storage platforms.
 
 ## Using Helm
 
 [Helm](https://helm.sh) is the recommended way to deploy these container orchestrator facilities.
 
 - Deploy the [HPE CSI Driver for Kubernetes](helm/charts/hpe-csi-driver)
+- Deploy the [HPE COSI Driver for Kubernetes](helm/charts/hpe-cosi-driver)
 - Deploy the [HPE FlexVolume Driver for Kubernetes](helm/charts/hpe-flexvolume-driver)
 - Deploy the [HPE Storage Array Exporter for Prometheus](helm/charts/hpe-array-exporter)
 - Deploy the [HPE CSI Info Metrics Provider for Prometheus](helm/charts/hpe-csi-info-metrics)

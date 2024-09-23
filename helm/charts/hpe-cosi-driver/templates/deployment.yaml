@@ -1,0 +1,66 @@
+# © Copyright 2024 Hewlett Packard Enterprise Development LP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hpe-cosi-driver.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  minReadySeconds: 30
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      {{- include "hpe-cosi-driver.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: {{ .Chart.Name }}
+      labels:
+        {{- include "hpe-cosi-driver.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "hpe-cosi-driver.serviceAccountName" . }}
+      volumes:
+      - name: socket
+        emptyDir: {}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.images.cosiDriver }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          volumeMounts:
+          - mountPath: /var/lib/cosi
+            name: socket
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          {{- if .Values.resources }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}
+          - name: PROXY
+            value: "{{ .Values.accessManagement.proxy }}"
+          - name: GLCP_COMMON_CLOUD
+            value: "{{ .Values.accessManagement.glcpCommonCloud }}"           
+        
+        - name: {{ .Values.sideCar.name }}
+          image: {{ .Values.images.cosiSideCar }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          args:
+          - "--v={{ .Values.sideCarVerbosityLevel }}"
+          volumeMounts:
+          - mountPath: /var/lib/cosi
+            name: socket
+          {{- if .Values.resources }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}

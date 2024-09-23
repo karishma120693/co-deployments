@@ -146,6 +146,40 @@ entries:
     urls:
     - hpe-array-exporter-1.0.0-beta.tgz
     version: 1.0.0-beta
+  hpe-cosi-driver:
+  - annotations:
+      artifacthub.io/category: storage
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://scod.hpedev.io/cosi_driver
+        - name: Chart Source
+          url: https://github.com/hpe-storage/co-deployments
+      artifacthub.io/prerelease: "true"
+      artifacthub.io/recommendations: |
+        - url: https://artifacthub.io/packages/helm/hpe-storage/hpe-csi-driver
+    apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-09-23T09:30:17.634623532Z"
+    description: A Helm chart for installing the HPE COSI Driver for Kubernetes
+    digest: b724d93539d1f5ea1a7a3e635d83a0d6f89f015bd9a0efa5f9c16a161862b700
+    home: https://hpe.com/storage/containers
+    icon: https://raw.githubusercontent.com/hpe-storage/co-deployments/master/docs/assets/hpedev.png
+    keywords:
+    - HPE
+    - Object
+    - Storage
+    - COSI
+    maintainers:
+    - email: dev-hi-containers@hpe.com
+      name: datamattsson
+    name: hpe-cosi-driver
+    sources:
+    - https://github.com/hpe-storage/cosi-driver
+    urls:
+    - hpe-cosi-driver-0.1.0.tgz
+    version: 0.1.0
   hpe-csi-driver:
   - annotations:
       artifacthub.io/category: storage
@@ -1375,4 +1409,4 @@ entries:
     urls:
     - hpe-flexvolume-driver-3.0.0.tgz
     version: 3.0.0
-generated: "2024-08-01T03:20:00.451286-07:00"
+generated: "2024-09-23T09:30:17.634045562Z"

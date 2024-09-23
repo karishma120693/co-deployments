@@ -1,0 +1,54 @@
+# © Copyright 2024 Hewlett Packard Enterprise Development LP
+
+# Default values for hpe-cosi-driver.
+replicaCount: 1
+
+fullnameOverride: "hpe-cosi-driver"
+
+# Default image pull policy
+imagePullPolicy: IfNotPresent
+
+# serviceAccount specifies the details of the COSI provisioner's service account
+serviceAccount:
+  # The name of the service account to use.
+  name: "hpe-cosi-provisioner-sa"
+
+# clusterRole name of the provisioner
+clusterRole:
+  name: "hpe-cosi-provisioner-role"
+
+# clusterRoleBinding name of the provisioner
+clusterRoleBinding:
+  name: "hpe-cosi-provisioner-role-binding"
+
+# deployment name of the provisioner
+deployment:
+  name: "hpe-cosi-provisioner"
+
+sideCar:
+  name: "hpe-cosi-provisioner-sidecar"
+
+# Fully qualified registry paths
+images:
+  cosiDriver: "quay.io/hpestorage/hpe-cosi-driver:edge"
+  cosiSideCar: "gcr.io/k8s-staging-sig-storage/objectstorage-sidecar:v20240815-v0.1.0-58-g80979e8"
+
+# Verbosity level of the logs printed by the sidecar container.
+sideCarVerbosityLevel: 5
+
+# configurations used for API access to IAM
+accessManagement:
+  # Proxy url if any to be used
+  proxy: ""
+  # HPE GLCP common cloud URL
+  glcpCommonCloud: sso.common.cloud.hpe.com
+
+resources: {}
+  # If you want to specify resources, uncomment the following lines, 
+  # adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
